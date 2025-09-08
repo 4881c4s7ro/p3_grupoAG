@@ -1,0 +1,30 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    cursor: default;
+}
+
+.barra-superior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 20px;
+    background-color: #32393b;
+    color: white;
+}
+
+.barra-inferior {
+    
+}
+
+.botonera-navegacion {
+    display: flex;
+    gap: 20px;
+}
+
+.boton-nav {
+    cursor: pointer;
+}
