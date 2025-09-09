@@ -36,8 +36,6 @@ html, body {
 .botonera-navegacion {
     display: flex;
     gap: 20px;
-    text-decoration: none;
-    color: white;
 }
 
 .boton-nav {
