@@ -4,7 +4,6 @@ main {
     margin: 0;
     padding: 0;
     width: 100%;
-    background-color: gray;
     flex: 1;
 }
 
@@ -13,6 +12,11 @@ main {
     margin-top: 20px;
     padding: 0;
     color: white;
+}
+
+.titulo-seccion {
+    color: #32393b;
+    margin-bottom: 20px;
 }
 
 .profesionales {
