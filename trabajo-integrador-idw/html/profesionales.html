@@ -1,76 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="../css/estilos-base.css">
+    
     <link rel="stylesheet" href="../css/home.css">
-    <link rel="stylesheet" href="../css/profesionales.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    <title>profesionales</title>
+    <title>Catálogo de Profesionales</title>
 </head>
 <body>
     <header>
-        <div class="barra-superior"> 
-            <div class="contenedor-titulo">
-                <h1 class="titulo">IDW S.A.</h1>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-height">
+            <div class="container">
+                
+                <a class="navbar-brand" href="home.html">IDW S.A.</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="botonera-navegacion ms-auto">
+                        <a href="home.html" class="boton-nav nav-link">Inicio</a>
+                        <a href="contacto.html" class="boton-nav nav-link">Contacto</a>
+                        <a href="profesionales.html" class="boton-nav nav-link active">Catálogo de profesionales</a>
+                    </div>
+                </div>
             </div>
-            <div class="botonera-navegacion">
-                        <a href="home.html" class="boton-nav">Inicio</a>
-                        <a href="contacto.html" class="boton-nav">Contacto</a>
-                        <a href="profesionales.html" class="boton-nav">Catálogo de Profesionales</a>
-                </ul>
-            </div>
-        </div>
+        </nav>
     </header>
     <main>
-        <h1 class="titulo titulo-seccion">PROFESIONALES DISPONIBLES</h1>
-        <div class="profesionales">
-            <div class="cards-medicos">
-
-                <div class="card">
-                    <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Doctor</h5>
-                        <p class="card-text">Dentista</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="container my-5">
+            <h1>Catálogo de Profesionales</h1>
+            <p>Especialistas disponibles en la cartilla</p>
+            
+            <div class="profesionales">
+                <div class="cards-medicos">
+                    <div class="row">
+                        
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="card">
+                                <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="José Perez">
+                                <div class="card-body">
+                                    <h5 class="card-title">José Perez</h5>
+                                    <p class="card-text">Especialista en odontología</p>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalJosePerez">
+                                        Más información
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="card">
+                                <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="Mario Gomez">
+                                <div class="card-body">
+                                    <h5 class="card-title">Mario Gomez</h5>
+                                    <p class="card-text">Licenciado en cardiología</p>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMarioGomez">
+                                        Más información
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="card">
+                                <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="Federico Paz">
+                                <div class="card-body">
+                                    <h5 class="card-title">Federico Paz</h5>
+                                    <p class="card-text">Endocrinólogo</p>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFedericoPaz">
+                                        Más información
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6 mb-4">
+                            <div class="card">
+                                <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="Pablo Garcia">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pablo Garcia</h5>
+                                    <p class="card-text">Especialista en medicina de urgencias</p>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPabloGarcia">
+                                        Más información
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="card">
-                    <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            
+            <div class="modal fade" id="modalJosePerez" tabindex="-1" aria-labelledby="modalJosePerezLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalJosePerezLabel">José Perez</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalJosePerezBody">
+                            Especialista en odontología con más de 10 años de experiencia.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" onclick="solicitarProfesional('modalJosePerezBody', 'José Perez')">Solicitar profesional</button>
+                        </div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            
+            <div class="modal fade" id="modalMarioGomez" tabindex="-1" aria-labelledby="modalMarioGomezLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalMarioGomezLabel">Mario Gomez</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalMarioGomezBody">
+                            Licenciado en cardiología, especializado en enfermedades cardiovasculares.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" onclick="solicitarProfesional('modalMarioGomezBody', 'Mario Gomez')">Solicitar profesional</button>
+                        </div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            
+            <div class="modal fade" id="modalFedericoPaz" tabindex="-1" aria-labelledby="modalFedericoPazLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalFedericoPazLabel">Federico Paz</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalFedericoPazBody">
+                            Endocrinólogo especializado en trastornos hormonales.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" onclick="solicitarProfesional('modalFedericoPazBody', 'Federico Paz')">Solicitar profesional</button>
+                        </div>
                     </div>
                 </div>
-
-
-            </div> <!--cierre de "cards-medicos"-->
-        </div>
+            </div>
+            
+            <div class="modal fade" id="modalPabloGarcia" tabindex="-1" aria-labelledby="modalPabloGarciaLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalPabloGarciaLabel">Pablo Garcia</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalPabloGarciaBody">
+                            Especialista en medicina de urgencias con experiencia en entornos de alta presión.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" onclick="solicitarProfesional('modalPabloGarciaBody', 'Pablo Garcia')">Solicitar profesional</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
-        <div class="barra-inferior"> 
+        <div class="barra-inferior">
             <div class="titulo-footer-container">
                 <h2> IDW S.A.</h2>
             </div>
@@ -81,6 +182,23 @@
             </div>
         </div>
     </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function solicitarProfesional(modalBodyId, profesionalNombre) {
+            
+            const modalBody = document.getElementById(modalBodyId);
+            
+            modalBody.innerHTML = `
+                <div class="alert alert-success" role="alert">
+                    ¡Profesional solicitado! Se ha enviado la solicitud para ${profesionalNombre}.
+                </div>
+            `;
+            
+            const button = modalBody.closest('.modal-content').querySelector('.btn-primary');
+            button.disabled = true;
+        }
+    </script>
 </body>
 </html>
