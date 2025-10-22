@@ -27,6 +27,7 @@
                         <a href="home.html" class="boton-nav nav-link">Inicio</a>
                         <a href="contacto.html" class="boton-nav nav-link">Contacto</a>
                         <a href="profesionales.html" class="boton-nav nav-link active">Catálogo de profesionales</a>
+                        <a href="admin-medicos.html" class="boton-nav nav-link">Administración</a>
                     </div>
                 </div>
             </div>
@@ -39,134 +40,12 @@
             
             <div class="profesionales">
                 <div class="cards-medicos">
-                    <div class="row">
-                        
-                        <div class="col-12 col-md-6 mb-4">
-                            <div class="card">
-                                <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="José Perez">
-                                <div class="card-body">
-                                    <h5 class="card-title">José Perez</h5>
-                                    <p class="card-text">Especialista en odontología</p>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalJosePerez">
-                                        Más información
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-12 col-md-6 mb-4">
-                            <div class="card">
-                                <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="Mario Gomez">
-                                <div class="card-body">
-                                    <h5 class="card-title">Mario Gomez</h5>
-                                    <p class="card-text">Licenciado en cardiología</p>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMarioGomez">
-                                        Más información
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-12 col-md-6 mb-4">
-                            <div class="card">
-                                <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="Federico Paz">
-                                <div class="card-body">
-                                    <h5 class="card-title">Federico Paz</h5>
-                                    <p class="card-text">Endocrinólogo</p>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalFedericoPaz">
-                                        Más información
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-12 col-md-6 mb-4">
-                            <div class="card">
-                                <img src="../assets/img-medicos/confident-successful-mature-doctor-at-hospital.webp" class="card-img-top" alt="Pablo Garcia">
-                                <div class="card-body">
-                                    <h5 class="card-title">Pablo Garcia</h5>
-                                    <p class="card-text">Especialista en medicina de urgencias</p>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPabloGarcia">
-                                        Más información
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row" id="contenedorMedicos">
                     </div>
                 </div>
             </div>
 
-            
-            <div class="modal fade" id="modalJosePerez" tabindex="-1" aria-labelledby="modalJosePerezLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalJosePerezLabel">José Perez</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="modalJosePerezBody">
-                            Especialista en odontología con más de 10 años de experiencia.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" onclick="solicitarProfesional('modalJosePerezBody', 'José Perez')">Solicitar profesional</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal fade" id="modalMarioGomez" tabindex="-1" aria-labelledby="modalMarioGomezLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalMarioGomezLabel">Mario Gomez</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="modalMarioGomezBody">
-                            Licenciado en cardiología, especializado en enfermedades cardiovasculares.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" onclick="solicitarProfesional('modalMarioGomezBody', 'Mario Gomez')">Solicitar profesional</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal fade" id="modalFedericoPaz" tabindex="-1" aria-labelledby="modalFedericoPazLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalFedericoPazLabel">Federico Paz</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="modalFedericoPazBody">
-                            Endocrinólogo especializado en trastornos hormonales.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" onclick="solicitarProfesional('modalFedericoPazBody', 'Federico Paz')">Solicitar profesional</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal fade" id="modalPabloGarcia" tabindex="-1" aria-labelledby="modalPabloGarciaLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalPabloGarciaLabel">Pablo Garcia</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="modalPabloGarciaBody">
-                            Especialista en medicina de urgencias con experiencia en entornos de alta presión.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" onclick="solicitarProfesional('modalPabloGarciaBody', 'Pablo Garcia')">Solicitar profesional</button>
-                        </div>
-                    </div>
-                </div>
+            <div id="contenedorModales">
             </div>
         </div>
     </main>
@@ -184,21 +63,6 @@
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        function solicitarProfesional(modalBodyId, profesionalNombre) {
-            
-            const modalBody = document.getElementById(modalBodyId);
-            
-            modalBody.innerHTML = `
-                <div class="alert alert-success" role="alert">
-                    ¡Profesional solicitado! Se ha enviado la solicitud para ${profesionalNombre}.
-                </div>
-            `;
-            
-            const button = modalBody.closest('.modal-content').querySelector('.btn-primary');
-            button.disabled = true;
-        }
-    </script>
+    <script type="module" src="../js/profesionales.js"></script>
 </body>
 </html>
