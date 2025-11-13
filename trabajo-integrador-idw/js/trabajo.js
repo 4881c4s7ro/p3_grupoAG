@@ -94,8 +94,9 @@
 			// save token and user
 			sessionStorage.setItem('accessToken', payload.accessToken);
 			sessionStorage.setItem('user', JSON.stringify(payload));
-			updateUI();
 			alert('Sesión iniciada correctamente');
+			// Redirigir a la página home después del login exitoso
+			window.location.href = 'home.html';
 		} catch (err) {
 			console.error(err);
 			alert('Error de red al intentar iniciar sesión');

@@ -12,8 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-height">
             <div class="container">
-                
-                <a class="navbar-brand" href="home.html">IDW S.A.</a>
+                <span class="navbar-text me-2 d-none" id="userInfo">Bienvenido, <span class="user-info">Usuario</span></span>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,7 +23,9 @@
                         <a href="home.html" class="boton-nav nav-link">Inicio</a>
                         <a href="contacto.html" class="boton-nav nav-link active">Contacto</a>
                         <a href="profesionales.html" class="boton-nav nav-link">Catálogo de profesionales</a>
-                        <a href="admin-medicos.html" class="boton-nav nav-link">Administración</a>
+                        <a href="admin-medicos.html" class="boton-nav nav-link" id="adminLink">Administración</a>
+                        <a href="login.html" class="boton-nav nav-link" id="loginLink">Iniciar Sesión</a>
+                        <button class="btn btn-outline-light btn-sm logout-btn d-none" id="logoutBtn">Cerrar sesión</button>
                     </div>
                 </div>
             </div>
@@ -48,5 +49,53 @@
             </div>
         </div>
     </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/auth-guard.js"></script>
+    <script>
+        // Lógica específica para contacto
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginLink = document.getElementById('loginLink');
+            const userInfo = document.getElementById('userInfo');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const adminLink = document.getElementById('adminLink');
+
+            function updateContactoUI() {
+                if (window.AuthGuard && window.AuthGuard.isAuthenticated()) {
+                    // Usuario logueado
+                    loginLink.style.display = 'none';
+                    userInfo.classList.remove('d-none');
+                    logoutBtn.classList.remove('d-none');
+                    
+                    // Actualizar nombre del usuario
+                    const user = window.AuthGuard.getStoredUser();
+                    const userName = user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : 'Usuario';
+                    const userNameSpan = document.querySelector('.user-info');
+                    if (userNameSpan) {
+                        userNameSpan.textContent = userName;
+                    }
+                } else {
+                    // Usuario no logueado
+                    loginLink.style.display = 'block';
+                    userInfo.classList.add('d-none');
+                    logoutBtn.classList.add('d-none');
+                }
+            }
+
+            // Actualizar UI inicial
+            updateContactoUI();
+
+            // Proteger acceso a administración
+            if (adminLink) {
+                adminLink.addEventListener('click', (e) => {
+                    if (!window.AuthGuard || !window.AuthGuard.isAuthenticated()) {
+                        e.preventDefault();
+                        alert('Debe iniciar sesión para acceder al panel de administración.');
+                        window.location.href = 'login.html';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

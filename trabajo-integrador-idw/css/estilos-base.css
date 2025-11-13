@@ -45,6 +45,7 @@ body {
 .botonera-navegacion {
     display: flex;
     gap: 20px;
+    align-items: center;
 }
 
 .boton-nav {
