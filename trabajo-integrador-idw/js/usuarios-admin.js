@@ -4,6 +4,7 @@
 
     // Elementos del DOM
     let btnRefrescarUsuarios, loadingUsuarios, errorUsuarios, tablaUsuarios, tablaUsuariosContainer;
+    let usuariosYaCargados = false; // Bandera para controlar la carga
 
     document.addEventListener('DOMContentLoaded', initUsuariosAdmin);
 
@@ -24,7 +25,7 @@
         const usuariosTab = document.getElementById('nav-usuarios-tab');
         if (usuariosTab) {
             usuariosTab.addEventListener('shown.bs.tab', () => {
-                if (!tablaUsuarios.hasChildNodes()) {
+                if (!usuariosYaCargados) {
                     cargarUsuarios();
                 }
             });
@@ -92,6 +93,7 @@
 
             const data = await response.json();
             renderizarUsuarios(data.users || []);
+            usuariosYaCargados = true; // Marcar como cargados después del éxito
             
         } catch (error) {
             console.error('Error al cargar usuarios:', error);
