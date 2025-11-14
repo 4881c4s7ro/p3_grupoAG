@@ -1,16 +1,8 @@
-// auth-guard.js - Protección de rutas de administración
 (() => {
-    /**
-     * Verifica si el usuario está autenticado
-     */
     function isAuthenticated() {
         const token = sessionStorage.getItem('accessToken');
         return !!token;
     }
-
-    /**
-     * Obtiene el usuario almacenado en sessionStorage
-     */
     function getStoredUser() {
         try {
             return JSON.parse(sessionStorage.getItem('user') || 'null');
@@ -19,9 +11,6 @@
         }
     }
 
-    /**
-     * Protege la página actual - redirige al login si no está autenticado
-     */
     function protectPage() {
         if (!isAuthenticated()) {
             alert('Acceso denegado. Debe iniciar sesión para acceder a esta página.');
@@ -31,9 +20,6 @@
         return true;
     }
 
-    /**
-     * Cerrar sesión
-     */
     function logout() {
         sessionStorage.removeItem('accessToken');
         sessionStorage.removeItem('user');
@@ -41,20 +27,14 @@
         window.location.href = 'login.html';
     }
 
-    /**
-     * Inicializar protección de página al cargar
-     */
     document.addEventListener('DOMContentLoaded', () => {
-        // Verificar si estamos en una página de administración
         const currentPage = window.location.pathname;
         const adminPages = ['admin-medicos.html', 'login.html'];
         
-        // Solo proteger páginas de administración (excepto login)
         if (adminPages.some(page => currentPage.includes(page)) && !currentPage.includes('login.html')) {
             protectPage();
         }
 
-        // Agregar funcionalidad de logout a botones con clase 'logout-btn'
         const logoutButtons = document.querySelectorAll('.logout-btn');
         logoutButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -63,7 +43,6 @@
             });
         });
 
-        // Mostrar información del usuario si está logueado
         const userInfoElements = document.querySelectorAll('.user-info');
         if (isAuthenticated() && userInfoElements.length > 0) {
             const user = getStoredUser();
@@ -74,7 +53,6 @@
         }
     });
 
-    // Exponer funciones globalmente
     window.AuthGuard = {
         isAuthenticated,
         getStoredUser,

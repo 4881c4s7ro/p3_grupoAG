@@ -5,29 +5,130 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Panel de Administración - Trabajo Final</title>
   <style>
-    body{font-family:Segoe UI,Arial,Helvetica,sans-serif;margin:20px}
-    .hidden{display:none}
-    .container{max-width:900px;margin:0 auto}
-    header{display:flex;justify-content:space-between;align-items:center}
-    header h1{font-size:1.1rem}
-    .card{border:1px solid #ddd;padding:16px;border-radius:6px;margin-top:12px}
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}
-    button{margin-right:6px}
-    form > *{display:block;margin:8px 0}
-    .actions{margin-top:12px}
-    .topbar{display:flex;gap:12px}
-    .warning{color:#a00}
+    :root {
+      --primary-color: #0d6efd;
+      --primary-hover: #0b5ed7;
+      --background-color: #f0f2f5;
+      --card-background: #ffffff;
+      --text-color: #333;
+      --border-color: #ddd;
+      --error-color: #a00;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: var(--text-color);
+      margin: 0;
+    }
+
+    .card {
+      background-color: var(--card-background);
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    form input[type="text"],
+    form input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+    }
+
+    .actions {
+      margin-top: 1.5rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .card p {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .card a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: #888;
+      font-size: 0.8rem;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Panel de Administración - Trabajo Final</h1>
-      <div class="topbar">
-        <div id="userBadge" class="hidden"></div>
-        <button id="logoutBtn" class="hidden">Cerrar sesión</button>
-      </div>
     </header>
 
     <section id="loginSection" class="card">
@@ -40,31 +141,6 @@
         </div>
       </form>
       <p>Usuarios válidos: ver <a href="https://dummyjson.com/users" target="_blank">https://dummyjson.com/users</a></p>
-    </section>
-
-    <nav id="adminNav" class="hidden">
-      <button data-section="users">Usuarios</button>
-    </nav>
-
-    <section id="usersSection" class="card hidden">
-      <h2>Usuarios registrados</h2>
-      <p class="warning">No se muestran datos sensibles (contraseñas, bank, etc.).</p>
-      <div style="margin:8px 0">
-        <button id="refreshUsers">Refrescar</button>
-        <button id="showCreateUser">Crear usuario</button>
-      </div>
-      <div id="createUserForm" class="hidden card">
-        <h3>Crear usuario</h3>
-        <form id="formCreateUser">
-          <input name="firstName" placeholder="Nombre" required />
-          <input name="lastName" placeholder="Apellido" required />
-          <input name="username" placeholder="username" required />
-          <input name="email" placeholder="email" type="email" required />
-          <input name="phone" placeholder="phone" />
-          <div class="actions"><button type="submit">Crear</button> <button id="cancelCreate" type="button">Cancelar</button></div>
-        </form>
-      </div>
-      <div id="usersList"></div>
     </section>
 
     <footer style="margin-top:20px;color:#666">Aplicación demo usando API pública <a href="https://dummyjson.com" target="_blank">dummyjson.com</a></footer>
