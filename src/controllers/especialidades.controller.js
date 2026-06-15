@@ -1,8 +1,7 @@
 import * as service from '../services/especialidades.service.js';
 
-// Trae todas las especialidades activas
+// Devuelve todas las especialidades cargadas
 export const getAll = async (req, res) => {
-
     const data = await service.getAll();
 
     res.status(200).json({
@@ -11,12 +10,11 @@ export const getAll = async (req, res) => {
     });
 };
 
-// Busca una especialidad por id
+// Busca una especialidad según el id recibido
 export const getById = async (req, res) => {
-
     const data = await service.getById(req.params.id);
 
-    // Si no encuentra nada devuelve 404
+    // Si no existe se devuelve un 404
     if (!data) {
         return res.status(404).json({
             ok: false,
@@ -30,10 +28,8 @@ export const getById = async (req, res) => {
     });
 };
 
-// Crea una especialidad nueva
+// Alta de una nueva especialidad
 export const create = async (req, res) => {
-
-    // Saco el nombre que viene en el body
     const { nombre } = req.body;
 
     await service.create(nombre);
@@ -44,9 +40,8 @@ export const create = async (req, res) => {
     });
 };
 
-// Actualiza una especialidad
+// Modifica el nombre de una especialidad
 export const update = async (req, res) => {
-
     const { nombre } = req.body;
 
     await service.update(req.params.id, nombre);
@@ -57,9 +52,8 @@ export const update = async (req, res) => {
     });
 };
 
-// Hace un borrado logico cambiando activo a 0
+// Baja lógica de la especialidad
 export const remove = async (req, res) => {
-
     await service.remove(req.params.id);
 
     res.status(200).json({

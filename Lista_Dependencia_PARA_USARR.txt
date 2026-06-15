@@ -1,0 +1,34 @@
+INSTALACIÓN DE DEPENDENCIAS
+
+npm install express
+npm install cors
+npm install dotenv
+npm install express-validator
+npm install jsonwebtoken
+npm install morgan
+npm install multer
+npm install mysql2
+npm install pdfkit
+npm install swagger-jsdoc
+npm install swagger-ui-express
+
+
+
+
+--- Estas son las librerias que usamos, cualquier manden mensaje al grupo
+
+Dependencias utilizadas:
+
+- express: Framework para crear la API REST.
+- cors: Habilita peticiones desde otros orígenes.
+- dotenv: Carga variables de entorno desde el archivo .env.
+- express-validator: Validación de datos recibidos.
+- jsonwebtoken: Generación y validación de tokens JWT.
+- morgan: Registro de peticiones HTTP.
+- multer: Carga de archivos e imágenes.
+- mysql2: Conexión con la base de datos MySQL.
+- pdfkit: Generación de reportes PDF.
+- swagger-jsdoc: Generación de documentación OpenAPI.
+- swagger-ui-express: Visualización de la documentación Swagger.
+
+EL PARA QUE SIRVEN

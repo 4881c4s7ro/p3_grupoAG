@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2026 a las 01:53:10
+-- Tiempo de generación: 15-06-2026 a las 17:36:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `prog3_turnos`
 --
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerReporteFacturacion` ()   BEGIN
+    SELECT
+        e.id_especialidad,
+        e.nombre AS especialidad,
+        COUNT(tr.id_turno_reserva) AS cantidad_turnos,
+        COALESCE(SUM(tr.valor_total), 0) AS facturacion_total
+    FROM especialidades e
+    LEFT JOIN medicos m
+        ON e.id_especialidad = m.id_especialidad
+    LEFT JOIN turnos_reservas tr
+        ON m.id_medico = tr.id_medico
+        AND MONTH(tr.fecha_hora) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)
+        AND tr.activo = 1
+    WHERE e.activo = 1
+    GROUP BY
+        e.id_especialidad, e.nombre
+    ORDER BY cantidad_turnos DESC;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -43,7 +68,32 @@ INSERT INTO `especialidades` (`id_especialidad`, `nombre`, `activo`) VALUES
 (3, 'TRAUMATOLOGÍA', 1),
 (4, 'INFECTOLOGÍA', 1),
 (9, 'NEUROLOGÍA', 1),
-(15, 'CARDIOLOGIA', 1);
+(15, 'CARDIOLOGIA', 1),
+(17, 'CARDIOLOGIA INFANTIL', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `liquidaciones_medico`
+--
+
+CREATE TABLE `liquidaciones_medico` (
+  `id_liquidacion` int(11) NOT NULL,
+  `id_medico` int(11) NOT NULL,
+  `id_turno_reserva` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `valor_total` decimal(10,2) NOT NULL,
+  `valor_medico` decimal(10,2) NOT NULL,
+  `valor_clinica` decimal(10,2) NOT NULL,
+  `activo` tinyint(4) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `liquidaciones_medico`
+--
+
+INSERT INTO `liquidaciones_medico` (`id_liquidacion`, `id_medico`, `id_turno_reserva`, `fecha`, `valor_total`, `valor_medico`, `valor_clinica`, `activo`) VALUES
+(1, 1, 9, '2026-06-13 23:54:45', 4500.00, 3600.00, 900.00, 1);
 
 -- --------------------------------------------------------
 
@@ -166,7 +216,9 @@ INSERT INTO `turnos_reservas` (`id_turno_reserva`, `id_medico`, `id_paciente`, `
 (4, 4, 3, 3, '2026-04-01 19:00:00', 13500.00, 0, 1),
 (5, 3, 2, 2, '2026-04-14 18:00:00', 9000.00, 0, 1),
 (6, 3, 2, 2, '2026-04-21 18:00:00', 9000.00, 0, 1),
-(7, 4, 3, 3, '2026-05-07 16:00:00', 133500.00, 0, 1);
+(7, 4, 3, 3, '2026-05-07 16:00:00', 133500.00, 0, 1),
+(8, 1, 1, 1, '2026-06-20 10:30:00', 4500.00, 0, 1),
+(9, 1, 1, 1, '2026-06-20 10:30:00', 4500.00, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -263,6 +315,12 @@ ALTER TABLE `especialidades`
   ADD UNIQUE KEY `nombre` (`nombre`);
 
 --
+-- Indices de la tabla `liquidaciones_medico`
+--
+ALTER TABLE `liquidaciones_medico`
+  ADD PRIMARY KEY (`id_liquidacion`);
+
+--
 -- Indices de la tabla `medicos`
 --
 ALTER TABLE `medicos`
@@ -319,7 +377,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `especialidades`
 --
 ALTER TABLE `especialidades`
-  MODIFY `id_especialidad` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_especialidad` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de la tabla `liquidaciones_medico`
+--
+ALTER TABLE `liquidaciones_medico`
+  MODIFY `id_liquidacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `medicos`
@@ -349,7 +413,7 @@ ALTER TABLE `pacientes`
 -- AUTO_INCREMENT de la tabla `turnos_reservas`
 --
 ALTER TABLE `turnos_reservas`
-  MODIFY `id_turno_reserva` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_turno_reserva` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
