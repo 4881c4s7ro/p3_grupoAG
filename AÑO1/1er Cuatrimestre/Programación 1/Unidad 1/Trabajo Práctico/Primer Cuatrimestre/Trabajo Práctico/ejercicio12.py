@@ -1,0 +1,7 @@
+print("Ingrese una Fecha en el siguiente formato: dd/mm/aaaa: ")
+input_fecha = input()
+fecha = str(input_fecha)
+print("Su Fecha es: ")
+print("Día: ", fecha[0:2])
+print("Mes: ", fecha[3:5])
+print( "Año: ", fecha[6:10])

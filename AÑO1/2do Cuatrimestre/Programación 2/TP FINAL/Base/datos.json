@@ -1,0 +1,130 @@
+[
+    {
+        "numero_id": 1,
+        "nombre": "Vehiculos de primera",
+        "sucursales": [
+            {
+                "numero_id": 1,
+                "direccion": "Martin Martinez N° 1234, Concordia, Entre Ríos, Argentina",
+                "ventas": [
+                    {
+                        "numero_id": 1,
+                        "fecha": "2025-09-15",
+                        "cliente_id": 1,
+                        "vehiculo_id": 3,
+                        "monto": 15000000
+                    }
+                ]
+            },
+            {
+                "numero_id": 2,
+                "direccion": "Ramon Ramirez N° 4567, Concordia, Entre Ríos, Argentina",
+                "ventas": [
+                    {
+                        "numero_id": 2,
+                        "fecha": "2025-09-21",
+                        "cliente_id": 2,
+                        "vehiculo_id": 7,
+                        "monto": 3000000
+                    }
+                ]
+            }
+        ],
+        "vehiculos": [
+            {
+                "numero_id": 1,
+                "marca": "Toyota",
+                "modelo": "Corolla",
+                "anio": 2020,
+                "caballos_fuerza": 169,
+                "frenos_abs": true,
+                "airbags": 7,
+                "estado_id": 1,
+                "sucursal_id": 1,
+                "tipo": "auto"
+            },
+            {
+                "numero_id": 2,
+                "marca": "Volkswagen",
+                "modelo": "Golf",
+                "anio": 2019,
+                "caballos_fuerza": 148,
+                "frenos_abs": true,
+                "airbags": 7,
+                "estado_id": 1,
+                "sucursal_id": 1,
+                "tipo": "auto"
+            },
+            {
+                "numero_id": 3,
+                "marca": "Ford",
+                "modelo": "Focus",
+                "anio": 2018,
+                "caballos_fuerza": 168,
+                "frenos_abs": true,
+                "airbags": 6,
+                "estado_id": 2,
+                "sucursal_id": 1,
+                "tipo": "auto"
+            },
+            {
+                "numero_id": 4,
+                "marca": "Chevrolet",
+                "modelo": "Cruze",
+                "anio": 2020,
+                "caballos_fuerza": 153,
+                "frenos_abs": true,
+                "airbags": 6,
+                "estado_id": 1,
+                "sucursal_id": 2,
+                "tipo": "auto"
+            },
+            {
+                "numero_id": 5,
+                "marca": "Honda",
+                "modelo": "Civic",
+                "anio": 2020,
+                "caballos_fuerza": 174,
+                "frenos_abs": true,
+                "airbags": 6,
+                "estado_id": 1,
+                "sucursal_id": 2,
+                "tipo": "auto"
+            },
+            {
+                "numero_id": 6,
+                "marca": "Honda",
+                "modelo": "CB500X",
+                "anio": 2020,
+                "cilindrada": 471,
+                "estado_id": 1,
+                "sucursal_id": 2,
+                "tipo": "moto"
+            },
+            {
+                "numero_id": 7,
+                "marca": "Yamaha",
+                "modelo": "FZ25",
+                "anio": 2020,
+                "cilindrada": 249,
+                "estado_id": 2,
+                "sucursal_id": 2,
+                "tipo": "moto"
+            }
+        ],
+        "clientes": [
+            {
+                "numero_id": 1,
+                "nombres": "Pedro",
+                "apellidos": "Perez",
+                "email": "pedro.perez@ejemplo.internal"
+            },
+            {
+                "numero_id": 2,
+                "nombres": "Fernando",
+                "apellidos": "Fernandez",
+                "email": "fernando.fernandez@ejemplo.internal"
+            }
+        ]
+    }
+]

@@ -1,0 +1,2 @@
+californication_redhot_chili_peppers = "Psichyc Spies From China Try To Steal Your Mind's Elation\n A Little Girl From Sweeden Dreams Of Silver Screen Quotations\n And If You Want These Kind Of Dreams It's Californication\n It's The Edge Of The World And All Of Western Civilization\n The Sun May Rise In The East At Least And Settles In A Final Location\n And if you want this kind of dreams\n It's Californication\n"
+print(californication_redhot_chili_peppers)

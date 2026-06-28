@@ -1,0 +1,12 @@
+print("Ingrese su nombre: ")
+input_nombre = input()
+nombre = str(input_nombre)
+print("Ingrese su apellido: ")
+input_apellido = input()
+apellido = str(input_apellido)
+print("Ingrese su año de nacimiento: ")
+input_anio = input()
+anio = str(input_anio)
+print("Usuario Recomendado: ", nombre[0:1] + apellido + anio[2:5])
+print("Contraseña Recomendada: ", nombre[0:2] + apellido[0:2] + anio[0:2])
+

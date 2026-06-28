@@ -1,0 +1,82 @@
+
+main {
+    max-width: 700px;   
+    margin: 40px auto 0 auto;
+    padding: 0 15px;
+}
+
+section {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+section h2 {
+    margin-top: 0;
+    color: #007bb5;
+    font-size: 1.5em;
+    margin-bottom: 18px;
+}
+
+.obraSocial {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.obraSocial li {
+    background: #3b67ed;
+    border: 1px solid #13258d;
+    border-radius: 5px;
+    padding: 6px 12px;
+    color: #fff;
+    font-weight: 400;
+}
+
+
+.catalogo {
+    background: none;
+    padding: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+    border-radius: 0px;
+}
+
+.medicos { 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+    padding: 20px 0;
+    
+}
+
+.medicos < div {
+    background: #fff;
+    border: 1px solid #88cbeb;
+    border-radius: 8px;
+    padding: 18px 22px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.medicos h3 {
+    margin-top: 0;
+    color: #002b3f;
+    font-size: 1.1em;
+}
+
+footer {
+    background: #e9eef2;
+    text-align: center;
+    padding: 18px 0;
+    color: #555;
+    margin-top: 40px;
+    font-size: 0.95em;
+    border-top: 1px solid #cde6ef;
+}

@@ -1,0 +1,6 @@
+print("Ingrese una cantidad de días: ")
+input_dias = input()
+dias = int(input_dias)
+print("La cantidad de horas es: ", dias * 24)
+print("La cantidad de minutos es: ", dias * 24 * 60)
+print("La cantidad de segundos es: ", dias * 24 * 60 * 60)

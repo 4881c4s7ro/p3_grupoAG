@@ -1,0 +1,7 @@
+print("Cuál es el Precio Total de la Cuenta: ")
+input_precio = input()
+precio = float(input_precio)
+print("Cuántos Comensales Son: ")   
+input_comensales = input()
+comensales = int(input_comensales)
+print("El Precio por Persona es: ", precio / comensales)

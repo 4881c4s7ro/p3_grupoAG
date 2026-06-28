@@ -1,0 +1,148 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    cursor: default;
+}
+
+body {
+    background-color: rgb(27, 12, 64);
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+
+main {
+
+    flex: 1;
+}
+
+
+
+.barra-superior {
+    color: white;
+    background-color: rgb(92, 92, 92); 
+    padding: 15px;
+    display: flex;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.barra-inferior {
+    color: white;
+    background-color: rgb(92, 92, 92); 
+    bottom: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    align-items: center;
+    padding: 15px;
+    display: flex;
+}
+
+
+
+.titulo-footer-container {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 40px;
+}
+
+
+.boton {
+color: white;
+font-family: Arial, Sans-serif;
+text-decoration: none;
+margin-right: 20px;
+font-size: 32px;
+font-weight: bold;
+}
+
+
+.separador-vert {
+    width: 3px;
+    height: 80px;
+    background-color: white;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+}
+
+header a:hover {
+    opacity: 0.7;
+}
+
+
+.centrar img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2000px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.boton-login{
+color: white;
+font-family: Arial, Sans-serif;
+text-decoration: none;
+margin-right: 20px;
+font-size: 32px;
+font-weight: bold;
+}
+
+.login-container{
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 300px;
+    font-size: 40px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+
+.input-login {
+    width: 500px;
+    height: 80px;
+    font-size: 30px;  
+    margin: 20px;       
+}
+
+.btn-login {
+    width: 200px;
+    height: 60px;
+    font-size: 30px;
+    cursor: pointer;
+    margin: 15px;
+}
+
+#form-login {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    justify-content: center; 
+}
+
+.foto-Messi{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 200px;
+}
+
+.oculto {
+    display: none;
+}

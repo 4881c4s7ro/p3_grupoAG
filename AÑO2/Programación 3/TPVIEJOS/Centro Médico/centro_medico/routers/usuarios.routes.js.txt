@@ -1,0 +1,151 @@
+import express from "express";
+const router = express.Router();
+
+import { pool } from "../db/conexion.js";
+import bcrypt from "bcrypt";
+import { check, param } from "express-validator";
+import { validarCampos } from "../middlewares/validarCampos.js";
+
+
+// =====================================================
+// 🟢 ADD
+// =====================================================
+router.post('/',
+[
+    check('documento').notEmpty(),
+    check('apellido').notEmpty(),
+    check('nombres').notEmpty(),
+    check('email').isEmail(),
+    check('contrasenia').notEmpty(),
+    validarCampos
+],
+async (req, res) => {
+try {
+
+    const { documento, apellido, nombres, email, contrasenia } = req.body;
+
+    const hash = await bcrypt.hash(contrasenia, 10);
+
+    const [result] = await pool.execute(
+        `INSERT INTO usuarios 
+        (documento, apellido, nombres, email, contrasenia) 
+        VALUES (?, ?, ?, ?, ?)`,
+        [documento, apellido, nombres, email, hash]
+    );
+
+    res.status(201).send({
+        estado: true,
+        id: result.insertId
+    });
+
+}catch(error){
+    console.log(error);
+    res.status(500).send({estado:false});
+}
+});
+
+
+// =====================================================
+// 🔵 BROWSE
+// =====================================================
+router.get('/', async (req, res) => {
+
+    const [data] = await pool.query(
+        `SELECT id_usuario, documento, apellido, nombres, email 
+         FROM usuarios WHERE activo = 1`
+    );
+
+    res.send(data);
+});
+
+
+// =====================================================
+// 🟣 READ
+// =====================================================
+router.get('/:id',
+[
+    param('id').isInt(),
+    validarCampos
+],
+async (req, res) => {
+
+    const [data] = await pool.execute(
+        `SELECT id_usuario, documento, apellido, nombres, email 
+         FROM usuarios WHERE id_usuario = ?`,
+        [req.params.id]
+    );
+
+    if (data.length === 0){
+        return res.status(404).send({msg: "Usuario no existe"});
+    }
+
+    res.send(data[0]);
+});
+
+
+// =====================================================
+// 🟡 UPDATE
+// =====================================================
+router.put('/:id',
+[
+    param('id').isInt(),
+    validarCampos
+],
+async (req, res) => {
+try {
+
+    const datos = req.body;
+
+    if (Object.keys(datos).length === 0){
+        return res.status(400).send({msg: "No hay datos para actualizar"});
+    }
+
+    if (datos.contrasenia){
+        datos.contrasenia = await bcrypt.hash(datos.contrasenia, 10);
+    }
+
+    const campos = Object.keys(datos)
+        .map(c => `${c}=?`)
+        .join(', ');
+
+    const valores = Object.values(datos);
+
+    const [result] = await pool.execute(
+        `UPDATE usuarios SET ${campos} WHERE id_usuario = ?`,
+        [...valores, req.params.id]
+    );
+
+    res.send({
+        estado: true,
+        msg: "Actualizado"
+    });
+
+}catch(error){
+    console.log(error);
+    res.status(500).send({estado:false});
+}
+});
+
+
+// =====================================================
+// 🔴 DELETE (LÓGICO)
+// =====================================================
+router.delete('/:id',
+[
+    param('id').isInt(),
+    validarCampos
+],
+async (req, res) => {
+
+    await pool.execute(
+        'UPDATE usuarios SET activo = 0 WHERE id_usuario = ?',
+        [req.params.id]
+    );
+
+    res.send({
+        estado: true,
+        msg: "Eliminado"
+    });
+});
+
+export default router;

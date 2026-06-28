@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Chefs Concordia</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h2>Registro de Chefs - Evento Gastronómico Concordia</h2>
+
+        <form id="formChef">
+            <label>DNI:</label> <input type="text" id="dni">
+
+            <label>Nombre:</label> <input type="text" id="nombre">
+
+            <label>Apellido:</label> <input type="text" id="apellido">
+
+            <label>Platos Vendidos:</label> <input type="number" id="platos">
+
+            <button type="button" onclick="guardarChef()">Guardar</button>
+        </form>
+
+        <button class="boton-ranking" onclick="mostrarRanking()">Mostrar Ranking</button>
+
+        <h2>Ranking de Chefs:</h2>
+
+        <table id="tablaRanking">
+            <thead>
+                <tr>
+                    <th>Puesto</th>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Platos Vendidos</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+
+<script>
+function guardarChef() {
+    const dni = document.getElementById("dni").value;
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;
+    const platos = parseInt(document.getElementById("platos").value);
+
+    const nuevoChef = {
+        dni: dni,
+        nombre: nombre,
+        apellido: apellido,
+        platos: platos
+    };
+
+    let listaChefs = [];
+
+    if (localStorage.getItem("chefsEvento")) {
+        listaChefs = JSON.parse(localStorage.getItem("chefsEvento"));
+    }
+
+    listaChefs.push(nuevoChef);
+
+    localStorage.setItem("chefsEvento", JSON.stringify(listaChefs));
+
+    alert("Chef guardado correctamente!");
+}
+
+
+function mostrarRanking() {
+    const tablaBody = document.querySelector("#tablaRanking tbody");
+    tablaBody.innerHTML = "";
+
+    if (!localStorage.getItem("chefsEvento")) {
+        alert("Todavía no hay chefs cargados.");
+        return;
+    }
+
+    let listaChefs = JSON.parse(localStorage.getItem("chefsEvento"));
+
+    listaChefs.sort((a, b) => b.platos - a.platos);
+
+    for (let i = 0; i < listaChefs.length; i++) {
+        const chef = listaChefs[i];
+        const fila = `
+            <tr>
+                <td>${i + 1}</td>
+                <td>${chef.dni}</td>
+                <td>${chef.nombre}</td>
+                <td>${chef.apellido}</td>
+                <td>${chef.platos}</td>
+            </tr>
+        `;
+        tablaBody.innerHTML += fila;
+    }
+}
+</script>
+
+</body>
+</html>

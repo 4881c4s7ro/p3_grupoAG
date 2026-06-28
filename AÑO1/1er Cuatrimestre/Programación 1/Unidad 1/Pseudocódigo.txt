@@ -1,0 +1,9 @@
+INICIO
+    MOSTRAR " Ingresar precio de producto A"
+    LEER producto_a
+    MOSTRAR " Ingresar precio de producto B"
+    LEER producto_b     
+    ESTABLECER resultado = producto_a + producto_b
+    MOSTRAR "El precio total es: ", resultado
+FINAL
+
