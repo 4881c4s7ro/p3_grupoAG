@@ -114,3 +114,23 @@ export const remove = async (id) => {
 
     return result.affectedRows;
 };
+
+// Actualiza la obra social del paciente
+export const asociarObraSocial = async (
+    id_paciente,
+    id_obra_social
+) => {
+
+    const [result] = await pool.query(
+        `UPDATE pacientes
+         SET id_obra_social = ?
+         WHERE id_paciente = ?`,
+        [
+            id_obra_social,
+            id_paciente
+        ]
+    );
+
+    return result.affectedRows;
+
+};
