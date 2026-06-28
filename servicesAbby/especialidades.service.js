@@ -4,6 +4,8 @@ import * as especialidadesRepository from '../repositories/especialidades.reposi
 
 
 
+
+
 // Pide todas las especialidades al repository
 export const getAll = async () => {
     return await especialidadesRepository.getAll();
@@ -89,8 +91,7 @@ export const crearEspecialidad = async (
 
 };
 
-import * as usuariosRepository from '../repositories/usuarios.repository.js';
-import * as especialidadesRepository from '../repositories/especialidades.repository.js';
+
 
 
 export const editarEspecialidad = async (

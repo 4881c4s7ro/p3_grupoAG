@@ -23,6 +23,7 @@ export const getById = async (id) => {
 };
 
 // Inserta un nuevo usuario
+// Inserta un nuevo usuario
 export const create = async (usuario) => {
 
     const {
@@ -37,7 +38,15 @@ export const create = async (usuario) => {
 
     const [result] = await pool.query(
         `INSERT INTO usuarios
-        (documento, apellido, nombres, email, contrasenia, foto_path, rol)
+        (
+            documento,
+            apellido,
+            nombres,
+            email,
+            contrasenia,
+            foto_path,
+            rol
+        )
         VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [
             documento,
@@ -50,9 +59,10 @@ export const create = async (usuario) => {
         ]
     );
 
-    return result;
+    return result.insertId;
 };
 
+// Actualiza un usuario
 // Actualiza un usuario
 export const update = async (id, usuario) => {
 
@@ -68,14 +78,14 @@ export const update = async (id, usuario) => {
 
     const [result] = await pool.query(
         `UPDATE usuarios
-        SET documento = ?,
-            apellido = ?,
-            nombres = ?,
-            email = ?,
-            contrasenia = ?,
-            foto_path = ?,
-            rol = ?
-        WHERE id_usuario = ?`,
+         SET documento = ?,
+             apellido = ?,
+             nombres = ?,
+             email = ?,
+             contrasenia = ?,
+             foto_path = ?,
+             rol = ?
+         WHERE id_usuario = ?`,
         [
             documento,
             apellido,
@@ -88,16 +98,38 @@ export const update = async (id, usuario) => {
         ]
     );
 
-    return result;
+    return result.affectedRows;
 };
 
 // Borrado lógico, no elimina el registro de la base
+// Borrado lógico
 export const remove = async (id) => {
 
     const [result] = await pool.query(
-        'UPDATE usuarios SET activo = 0 WHERE id_usuario = ?',
+        `UPDATE usuarios
+         SET activo = 0
+         WHERE id_usuario = ?`,
         [id]
     );
 
-    return result;
+    return result.affectedRows;
+};
+
+// Busca un usuario por documento y email
+export const getByDocumentoYEmail = async (documento, email) => {
+
+    const [rows] = await pool.query(
+        `SELECT *
+         FROM usuarios
+         WHERE documento = ?
+           AND email = ?
+           AND activo = 1`,
+        [
+            documento,
+            email
+        ]
+    );
+
+    // Devuelve solamente el primer resultado
+    return rows[0];
 };

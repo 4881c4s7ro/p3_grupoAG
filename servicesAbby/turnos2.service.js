@@ -16,6 +16,15 @@ import {
 
 } from "../repositories/turnos_reservas.repository.js";
 
+import {
+
+obtenerPaciente,
+obtenerMedicoPorEspecialidad,
+obtenerObraSocial,
+crearTurno
+
+} from "../repositories/turnos_reservas.repository.js";
+
 
 export const listarTurnosMedico = async(id_medico)=>{
 
@@ -131,6 +140,137 @@ await obtenerReservasPaciente(
 
 
 return turnos;
+
+
+};
+
+export const reservarTurno = async(datos)=>{
+
+
+const {
+
+documento,
+nombre,
+apellido,
+especialidad,
+fecha_hora
+
+}=datos;
+
+
+
+// 1) paciente
+
+const paciente =
+await obtenerPaciente(
+ documento,
+ nombre,
+ apellido
+);
+
+
+
+if(!paciente){
+
+ throw new Error(
+ "Paciente inexistente"
+ );
+
+}
+
+
+
+// 2) médico
+
+const medico =
+await obtenerMedicoPorEspecialidad(
+ especialidad
+);
+
+
+
+if(!medico){
+
+ throw new Error(
+ "No hay médico para esa especialidad"
+ );
+
+}
+
+
+
+// 3) cobertura
+
+const obraSocial =
+await obtenerObraSocial(
+ paciente.id_obra_social
+);
+
+
+
+if(!obraSocial){
+
+ throw new Error(
+ "Paciente sin cobertura válida"
+ );
+
+}
+
+
+
+// 4) calcular valor
+
+let valorTotal;
+
+
+
+if(obraSocial.es_particular === 1){
+
+
+ valorTotal =
+ medico.valor_consulta;
+
+
+}else{
+
+
+ valorTotal =
+ medico.valor_consulta -
+ (
+  obraSocial.porcentaje_descuento *
+  medico.valor_consulta / 100
+ );
+
+
+}
+
+
+
+
+// 5) crear turno
+
+return await crearTurno({
+
+ id_medico:
+ medico.id_medico,
+
+
+ id_paciente:
+ paciente.id_paciente,
+
+
+ id_obra_social:
+ obraSocial.id_obra_social,
+
+
+ fecha_hora,
+
+
+ valor_total:
+ valorTotal
+
+
+});
 
 
 }

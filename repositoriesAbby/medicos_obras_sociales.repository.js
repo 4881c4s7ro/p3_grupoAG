@@ -27,13 +27,58 @@ export const getById = async (id) => {
     return rows[0];
 };
 
+// Busca la asociación entre un médico y una obra social
+export const getByMedicoYObraSocial = async (
+    id_medico,
+    id_obra_social
+) => {
+
+    const [rows] = await pool.query(
+        `SELECT *
+         FROM medicos_obras_sociales
+         WHERE id_medico = ?
+           AND id_obra_social = ?
+           AND activo = 1`,
+        [
+            id_medico,
+            id_obra_social
+        ]
+    );
+
+    return rows[0];
+
+};
+
+// Verifica si un médico atiende una determinada obra social
+export const existeRelacion = async (id_medico, id_obra_social) => {
+
+    const [rows] = await pool.query(
+        `SELECT *
+         FROM medicos_obras_sociales
+         WHERE id_medico = ?
+           AND id_obra_social = ?
+           AND activo = 1`,
+        [
+            id_medico,
+            id_obra_social
+        ]
+    );
+
+    return rows.length > 0;
+};
 
 // Inserta una nueva relación medico - obra social
-export const create = async (id_medico, id_obra_social) => {
+export const create = async (
+    id_medico,
+    id_obra_social
+) => {
 
     const [result] = await pool.query(
         `INSERT INTO medicos_obras_sociales
-        (id_medico, id_obra_social)
+        (
+            id_medico,
+            id_obra_social
+        )
         VALUES (?, ?)`,
         [
             id_medico,
@@ -41,16 +86,19 @@ export const create = async (id_medico, id_obra_social) => {
         ]
     );
 
-    return result;
+    return result.insertId;
 };
 
-
 // Actualiza una relación medico - obra social
-export const update = async (id, id_medico, id_obra_social) => {
+export const update = async (
+    id,
+    id_medico,
+    id_obra_social
+) => {
 
     const [result] = await pool.query(
         `UPDATE medicos_obras_sociales
-         SET id_medico = ?, 
+         SET id_medico = ?,
              id_obra_social = ?
          WHERE id_medico_obra_social = ?`,
         [
@@ -60,9 +108,8 @@ export const update = async (id, id_medico, id_obra_social) => {
         ]
     );
 
-    return result;
+    return result.affectedRows;
 };
-
 
 // Borrado logico, no elimina el registro de la base
 export const remove = async (id) => {
@@ -74,5 +121,5 @@ export const remove = async (id) => {
         [id]
     );
 
-    return result;
+    return result.affectedRows;
 };
