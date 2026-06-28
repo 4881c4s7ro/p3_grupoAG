@@ -6,6 +6,7 @@ import * as medicosObrasSocialesRepository from '../repositories/medicos_obras_s
 import * as obrasSocialesRepository from '../repositories/obras_sociales.repository.js';
 import * as turnosReservasRepository from '../repositories/turnos_reservas.repository.js';
 
+
 export const reservarTurno = async (datos) => {
 
     const {
@@ -469,5 +470,165 @@ export const reservarTurno = async (datos) => {
 
 
     return nuevoTurno;
+
+};
+
+
+
+
+//---------------------------------------------------------
+// Registrar un turno para un paciente (ROL ADMINISTRADOR)
+//---------------------------------------------------------
+export const registrarTurnoPaciente = async (datos) => {
+
+    const {
+
+        documentoAdministrador,
+        emailAdministrador,
+
+        documentoPaciente,
+        emailPaciente,
+
+        apellidoPaciente,
+        nombresPaciente,
+
+        nombreEspecialidad,
+        nombreObraSocial,
+
+        id_medico,
+
+        fecha_hora
+
+    } = datos;
+
+
+    //-------------------------------------------------
+    // 1. Validar administrador
+    //-------------------------------------------------
+
+    const administrador =
+        await usuariosRepository.getByDocumentoYEmail(
+            documentoAdministrador,
+            emailAdministrador
+        );
+
+    if (!administrador) {
+
+        throw new Error(
+            'No existe un usuario registrado con ese DNI y email.'
+        );
+
+    }
+
+    if (administrador.rol !== 3) {
+
+        throw new Error(
+            'El usuario no está autorizado para realizar esta operación.'
+        );
+
+    }
+
+
+    //-------------------------------------------------
+    // 2. Validar especialidad
+    //-------------------------------------------------
+
+    const especialidad =
+        await especialidadesRepository.getByNombre(
+            nombreEspecialidad
+        );
+
+    if (!especialidad) {
+
+        throw new Error(
+            'La especialidad solicitada no está disponible en este centro médico.'
+        );
+
+    }
+
+
+    //-------------------------------------------------
+    // 3. Obtener médicos de la especialidad
+    //-------------------------------------------------
+
+    const medicos =
+        await medicosRepository.getByEspecialidad(
+            especialidad.id_especialidad
+        );
+
+    if (medicos.length === 0) {
+
+        throw new Error(
+            'No existen médicos para atender esa especialidad.'
+        );
+
+    }
+
+
+    //-------------------------------------------------
+    // 4. Crear paciente si no existe
+    //-------------------------------------------------
+
+    let usuarioPaciente =
+        await usuariosRepository.getByDocumentoYEmail(
+            documentoPaciente,
+            emailPaciente
+        );
+
+    if (!usuarioPaciente) {
+
+        await pacientesService.crearPaciente({
+
+            documento: documentoPaciente,
+            apellido: apellidoPaciente,
+            nombres: nombresPaciente,
+            email: emailPaciente
+
+        });
+
+    }
+
+
+    //-------------------------------------------------
+    // 5. Asociar/Cambiar obra social
+    //-------------------------------------------------
+
+    await pacientesService.asociarObraSocial(
+
+        documentoAdministrador,
+        emailAdministrador,
+
+        documentoPaciente,
+        emailPaciente,
+
+        nombreObraSocial
+
+    );
+
+
+    //-------------------------------------------------
+    // 6. Registrar el turno
+    //-------------------------------------------------
+
+    const turno =
+        await reservarTurno({
+
+            documentoPaciente,
+            emailPaciente,
+
+            nombreEspecialidad,
+
+            id_medico,
+
+            fecha_hora
+
+        });
+
+
+    //-------------------------------------------------
+    // 7. Devolver resultado
+    //-------------------------------------------------
+
+    return turno;
 
 };
