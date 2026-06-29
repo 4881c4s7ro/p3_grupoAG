@@ -28,31 +28,42 @@ export const getById = async (id_turno_reserva) => {
     return rows[0];
 };
  
+// obtiene los turnos de un paciente
 
-export const getByPaciente = async (id_paciente) => {
+export const listarTurnosPacientes = async (id_paciente) => {
 
     const [rows] = await pool.query(
         `SELECT
-            tr.fecha_hora,
-            tr.valor_total,
-            tr.atentido,
+            tr.fecha_hora AS fecha_turno,
+            up.nombres AS nombre_paciente,
+            up.apellido AS apellido_paciente,
             e.nombre AS especialidad,
-            um.apellido AS apellido_medico,
             um.nombres AS nombre_medico,
-            os.nombre AS cobertura
+            um.apellido AS apellido_medico
         FROM turnos_reservas tr
+
+        INNER JOIN pacientes p
+            ON tr.id_paciente = p.id_paciente
+
+        INNER JOIN usuarios up
+            ON p.id_usuario = up.id_usuario
+
         INNER JOIN medicos m
             ON tr.id_medico = m.id_medico
+
         INNER JOIN usuarios um
             ON m.id_usuario = um.id_usuario
+
         INNER JOIN especialidades e
             ON m.id_especialidad = e.id_especialidad
-        INNER JOIN obras_sociales os
-            ON tr.id_obra_social = os.id_obra_social
-        WHERE tr.id_paciente = ?
-          AND tr.activo = 1
-        ORDER BY tr.fecha_hora`
-        ,
+
+        WHERE
+            p.id_paciente=?
+            AND tr.activo = 1
+            AND up.activo = 1
+            AND um.activo = 1
+            
+        ORDER BY tr.fecha_hora`,
         [id_paciente]
     );
 

@@ -34,6 +34,7 @@ export const getById = async (id) => {
 };
 
 
+
 // Busca un paciente por id_usuario
 export const getByUsuario = async (id_usuario) => {
 
@@ -133,4 +134,35 @@ export const asociarObraSocial = async (
 
     return result.affectedRows;
 
+};
+
+// Obtener paciente por documento y email
+export const obtenerDatoPaciente = async (documento, email) => {
+
+    const [rows] = await pool.query(
+        `
+        SELECT
+            p.id_paciente,
+            p.id_usuario,
+            p.id_obra_social,
+            u.documento,
+            u.apellido,
+            u.nombres,
+            u.email,
+            u.rol,
+            u.activo
+        FROM pacientes p
+        INNER JOIN usuarios u
+            ON p.id_usuario = u.id_usuario
+        WHERE u.documento = ?
+          AND u.email = ?
+          AND u.activo = 1
+        `,
+        [
+            documento,
+            email
+        ]
+    );
+
+    return rows[0];
 };

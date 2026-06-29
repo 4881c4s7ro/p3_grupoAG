@@ -56,7 +56,7 @@ export const getByEspecialidad = async (id_especialidad) => {
     return rows;
 };
 
-/ Busca un médico por id_usuario
+// Busca un médico por id_usuario
 export const getByUsuario = async (id_usuario) => {
 
     const [rows] = await pool.query(
@@ -156,4 +156,3 @@ export const remove = async (id) => {
     return result.affectedRows;
 };
 
-/
