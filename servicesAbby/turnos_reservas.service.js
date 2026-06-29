@@ -185,7 +185,11 @@ export const reservarTurno = async (datos) => {
 
 
 // Listar los turnos pendientes de un médico
-export const listarTurnosPropiosMedico = async (documento, email) => {
+export const listarTurnosPropiosMedico = async (datos) => {
+
+const {
+        documento, email
+    } = datos;
 
     // 1. Verificar que exista el usuario
     const usuario = await usuariosRepository.getByDocumentoYEmail(
@@ -221,13 +225,15 @@ export const listarTurnosPropiosMedico = async (documento, email) => {
 
 
 // Marcar un turno como atendido
-export const atenderTurnoMedico = async (
-    documentoMedico,
-    emailMedico,
-    documentoPaciente,
-    emailPaciente,
-    fechaHora
-) => {
+export const atenderTurnoMedico = async (datos) => {
+
+    const {
+         documentoMedico,
+        emailMedico,
+        documentoPaciente,
+        emailPaciente,
+        fechaHora
+    } = datos;
 
     // 1. Verificar que exista el médico
     const medico = await usuariosRepository.getMedicoByDocumentoYEmail(

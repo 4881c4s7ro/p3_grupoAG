@@ -1,15 +1,18 @@
 import * as usuariosRepository from '../repositories/usuarios.repository.js';
 import * as pacientesRepository from '../repositories/pacientes.repository.js';
 import * as obrasSocialesRepository from '../repositories/obras_sociales.repository.js';
+import * as especialidadesRepository from '../repositories/especialidades.repository.js';
 
 
-export const asociarObraSocial = async (
-    documentoAdministrador,
-    emailAdministrador,
-    documentoPaciente,
-    emailPaciente,
-    nombreObraSocial
-) => {
+export const asociarObraSocial = async (datos) => {
+
+    const {
+        documentoAdministrador,
+        emailAdministrador,
+        documentoPaciente,
+        emailPaciente,
+        nombreObraSocial
+    } = datos;
 
     //====================================================
     // Validar administrador
@@ -150,3 +153,8 @@ export const asociarObraSocial = async (
     return pacienteActualizado;
 
 };
+
+export const listarEspecialidades = async () => {
+
+    
+}

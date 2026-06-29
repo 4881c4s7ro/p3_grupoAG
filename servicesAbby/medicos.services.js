@@ -5,13 +5,15 @@ import * as medicosRepository from '../repositories/medicos.repository.js';
 ;
 
 
-export const asociarEspecialidadAMedico = async (
-    documentoAdministrador,
-    emailAdministrador,
-    documentoMedico,
-    emailMedico,
-    nombreEspecialidad
-) => {
+export const asociarEspecialidadAMedico = async (datos) => {
+
+    const {
+        documentoAdministrador,
+        emailAdministrador,
+        documentoMedico,
+        emailMedico,
+        nombreEspecialidad
+    } = datos;
 
     // Buscar administrador
     const administrador =
@@ -108,11 +110,13 @@ export const asociarEspecialidadAMedico = async (
     };
 
 };
-export const listarMedicosPorEspecialidad = async (
-    documentoPaciente,
-    emailPaciente,
-    nombreEspecialidad
-) => {
+export const listarMedicosPorEspecialidad = async (datos) => {
+
+    const {
+        documentoPaciente,
+        emailPaciente,
+        nombreEspecialidad
+    } = datos;
 
     // 1. Buscar usuario
     const usuario =

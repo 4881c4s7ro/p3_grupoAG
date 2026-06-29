@@ -22,7 +22,11 @@ export const create = async (nombre) => {
 };
 
 // Actualiza una especialidad existente
-export const update = async (id, nombre) => {
+export const update = async (datos) => {
+    const {
+        id, 
+        nombre
+    } = datos;
     return await especialidadesRepository.update(id, nombre);
 };
 
@@ -33,11 +37,13 @@ export const remove = async (id) => {
 
 
 
-export const crearEspecialidad = async (
-    documentoAdministrador,
-    emailAdministrador,
-    nombreEspecialidad
-) => {
+export const crearEspecialidad = async (datos) => {
+
+    const {
+        documentoAdministrador,
+        emailAdministrador,
+        nombreEspecialidad
+    } = datos;
 
     // 1. Buscar usuario administrador
     const usuario = await usuariosRepository.getByDocumentoYEmail(

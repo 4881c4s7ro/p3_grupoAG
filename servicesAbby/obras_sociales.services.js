@@ -2,20 +2,17 @@ import * as usuariosRepository from '../repositories/usuarios.repository.js';
 import * as obrasSocialesRepository from '../repositories/obras_sociales.repository.js';
 
 
+//===================================================================
 
+export const crearObraSocial = async (datos) => {
 
-export const crearObraSocial = async (
-    documentoAdministrador,
-    emailAdministrador,
-    datosObraSocial
-) => {
-
-    const {
-        nombre,
-        descripcion,
-        porcentaje_descuento,
-        es_particular
-    } = datosObraSocial;
+    const { documentoAdministrador,
+            emailAdministrador,
+            nombre,
+            descripcion,
+            porcentaje_descuento,
+            es_particular
+    } = datos;
 
 
     // 1. Buscar usuario administrador
@@ -82,10 +79,14 @@ export const crearObraSocial = async (
 
 };
 
-export const listarObrasSociales = async (
-    documentoAdministrador,
-    emailAdministrador
-) => {
+//===================================================================
+
+export const listarObrasSociales = async ( datos) => {
+
+    const {
+        documentoAdministrador,
+        emailAdministrador
+    } = datos;
 
     // 1. Buscar usuario
     const usuario = await usuariosRepository.getByDocumentoYEmail(
@@ -138,19 +139,20 @@ export const listarObrasSociales = async (
 
 };
 
-export const editarObraSocial = async (
-    documentoAdministrador,
-    emailAdministrador,
-    nombreObraSocial,
-    nuevosDatos
+//===================================================================
+
+export const editarObraSocial = async (datos
 ) => {
 
     const {
-        nombre,
+        documentoAdministrador,
+        emailAdministrador,
+        nombreObraSocial,
+        nombre, // nuevo nombre de la obra social
         descripcion,
         porcentaje_descuento,
         es_particular
-    } = nuevosDatos;
+    } = Datos;
 
 
     // 1. Buscar usuario administrador
