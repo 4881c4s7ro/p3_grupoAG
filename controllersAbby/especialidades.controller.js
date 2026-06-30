@@ -1,8 +1,8 @@
-import * as service from '../services/especialidades.service.js';
+import * as especialidadesService from '../services/especialidades.service.js';
 
 // Devuelve todas las especialidades cargadas
 export const getAll = async (req, res) => {
-    const data = await service.getAll();
+    const data = await especialidadesService.getAll();
 
     res.status(200).json({
         ok: true,
@@ -12,7 +12,7 @@ export const getAll = async (req, res) => {
 
 // Busca una especialidad según el id recibido
 export const getById = async (req, res) => {
-    const data = await service.getById(req.params.id);
+    const data = await especialidadesService.getById(req.params.id);
 
     // Si no existe se devuelve un 404
     if (!data) {
@@ -32,7 +32,7 @@ export const getById = async (req, res) => {
 export const create = async (req, res) => {
     const { nombre } = req.body;
 
-    await service.create(nombre);
+    await especialidadesService.create(nombre);
 
     res.status(201).json({
         ok: true,
@@ -44,7 +44,7 @@ export const create = async (req, res) => {
 export const update = async (req, res) => {
     const { nombre } = req.body;
 
-    await service.update(req.params.id, nombre);
+    await especialidadesService.update(req.params.id, nombre);
 
     res.status(200).json({
         ok: true,
@@ -54,7 +54,7 @@ export const update = async (req, res) => {
 
 // Baja lógica de la especialidad
 export const remove = async (req, res) => {
-    await service.remove(req.params.id);
+    await especialidadesService.remove(req.params.id);
 
     res.status(200).json({
         ok: true,

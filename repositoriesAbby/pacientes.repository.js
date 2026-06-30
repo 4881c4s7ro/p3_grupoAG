@@ -136,8 +136,8 @@ export const asociarObraSocial = async (
 
 };
 
-// Obtener paciente por documento y email
-export const obtenerDatoPaciente = async (documento, email) => {
+// Obtener obra social del paciente por documento y email
+export const obteneObraSocialPaciente = async (id_paciente) => {
 
     const [rows] = await pool.query(
         `
@@ -152,11 +152,58 @@ export const obtenerDatoPaciente = async (documento, email) => {
             u.rol,
             u.activo
         FROM pacientes p
-        INNER JOIN usuarios u
-            ON p.id_usuario = u.id_usuario
+        INNER JOIN obras_sociales os
+            ON p.id_obra_social = os.id_obra_social
         WHERE u.documento = ?
-          AND u.email = ?
+          AND u.e
           AND u.activo = 1
+        `,
+        [
+            documento,
+            email
+        ]
+    );
+
+    return rows[0];
+};
+
+
+
+// Obtener paciente por documento y email
+export const obtenerDatoPaciente = async (documento, email) => {
+
+    const [rows] = await pool.query(
+        `
+        SELECT
+                p.id_paciente,
+
+                u.id_usuario,
+                u.documento,
+                u.apellido,
+                u.nombres,
+                u.email,
+                u.rol,
+                u.activo AS usuario_activo,
+
+                os.id_obra_social,
+                os.nombre AS obra_social,
+                os.descripcion,
+                os.porcentaje_descuento,
+                os.es_particular,
+                os.activo AS obra_social_activa
+
+            FROM usuarios u
+
+            INNER JOIN pacientes p
+                ON u.id_usuario = p.id_usuario
+
+            INNER JOIN obras_sociales os
+                ON p.id_obra_social = os.id_obra_social
+
+            WHERE u.documento = ?
+            AND u.email = ?
+            AND u.activo = 1
+            AND os.activo = 1;
         `,
         [
             documento,

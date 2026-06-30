@@ -4,12 +4,12 @@ import * as turnosReservasService from '../services/turnos_reservas.service.js';
 //---------------------------------------------------------
 // Paciente - Reservar un turno propio
 //---------------------------------------------------------
-export const reservarTurnoPaciente = async (req, res) => {
+export const reservarPacienteTurno = async (req, res) => {
 
     try {
 
         const resultado =
-            await turnosReservasService.reservarTurno(
+            await turnosReservasService.reservarPacienteTurno(
                 req.body
             );
 
@@ -31,7 +31,7 @@ export const reservarTurnoPaciente = async (req, res) => {
 //---------------------------------------------------------
 export const listarTurnosPaciente = async (req, res) => {
 
-    try {
+    try {console.log("antes de mandar al sercicio",req.body);
 
         const resultado =
             await turnosReservasService.listarTurnosPaciente(
@@ -54,12 +54,12 @@ export const listarTurnosPaciente = async (req, res) => {
 //---------------------------------------------------------
 // Médico - Listar turnos propios
 //---------------------------------------------------------
-export const listarTurnosPropios = async (req, res) => {
+export const listarTurnosMedico = async (req, res) => {
 
     try {
 
         const resultado =
-            await turnosReservasService.listarTurnosPropios(
+            await turnosReservasService.listarTurnosMedico(
                 req.body
             );
 

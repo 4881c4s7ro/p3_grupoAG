@@ -1,5 +1,5 @@
 import * as pacientesService from '../services/pacientes.service.js';
-
+import * as especialidadesService from '../services/especialidades.service.js';
 
 //---------------------------------------------------------
 // Paciente - Reservar un turno
@@ -61,6 +61,31 @@ export const asociarObraSocial = async (req, res) => {
 
         const resultado =
             await pacientesService.asociarObraSocial(
+                req.body
+            );
+
+        res.status(200).json(resultado);
+
+    } catch (error) {
+
+        res.status(400).json({
+            error: error.message
+        });
+
+    }
+
+};
+
+//---------------------------------------------------------
+// Paciente - Listar las especialidades
+// habitual de un paciente
+//---------------------------------------------------------
+export const listarEspecialidades = async (req, res) => {
+
+    try {
+
+        const resultado =
+            await especialidadesService.listarEspecialidades(
                 req.body
             );
 

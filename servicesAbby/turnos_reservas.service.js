@@ -212,32 +212,55 @@ export const validarReservaTurno = async (datos) => {
 
 };
 
-export const reservarTurno = async (datos) => {
+
+//---------------------------------------------------------
+// Registrar un turno para un paciente (ROL PACIENTE)
+//---------------------------------------------------------
+export const reservarPacienteTurno = async (datos) => {
 
     // Ejecutar todas las validaciones
     const {
 
-        medico,
-        paciente,
-        obraSocial,
-        fechaHora
+        documento,
+        email,
+        especialidad,
+        fecha_hora
 
-    } = await validarReservaTurno(datos);
+    } = datos;
 
+    const paciente =
+        await pacientesRepository.obtenerDatoPaciente(documento, email);
 
+    if (!paciente) {
+        console.log("chaucaha 1111111111111111111 ");
+        throw new Error(    
+            "El paciente  no existe en el sistema ."
+        );
+    }
+ // dveevuele el primer medico con esa especialidad
+
+    const medico =
+        await medicosRepository.ObtenerMedicoEspecialidad(especialidad);
+
+     if (!medico) {
+        console.log("chaucaha 22222222222222 ");
+        throw new Error(    
+            "El medico  no existe en el sistema ."
+        );
+    }
     // Calcular valor de la consulta
     let valorTotal = parseFloat(
         medico.valor_consulta
     );
 
 
-    if (obraSocial.es_particular !== 1) {
+    if (paciente.es_particular !== 1) {
 
         valorTotal =
             valorTotal -
             (
                 valorTotal *
-                parseFloat(obraSocial.porcentaje_descuento) /
+                parseFloat(paciente.porcentaje_descuento) /
                 100
             );
 
@@ -245,17 +268,21 @@ export const reservarTurno = async (datos) => {
 
 
     // Crear el turno
-    const nuevoTurno =
-        await turnosReservasRepository.create({
+    const idTurno =
+    await turnosReservasRepository.create({
 
-            id_medico: medico.id_medico,
-            id_paciente: paciente.id_paciente,
-            id_obra_social: obraSocial.id_obra_social,
-            fecha_hora: fechaHora,
-            valor_total: valorTotal,
-            atentido: 0
+        id_medico: medico.id_medico,
+        id_paciente: paciente.id_paciente,
+        id_obra_social: paciente.id_obra_social,
+        fecha_hora,
+        valor_total: valorTotal,
+        atentido: 0
 
-        });
+    });
+
+    const turno = await turnosReservasRepository.getById(idTurno);
+
+    return turno;
 
 
     return nuevoTurno;
@@ -441,7 +468,7 @@ console.log("dentro del servicio antes de buscar al paciente",documento,email);
     if (!paciente) {
         console.log("dentro del servicio despues de buscar al paciente",documento,email);
         throw new Error(    
-            "El paciente la concha de la lora no existe en el sistema ."
+            "El paciente  no existe en el sistema ."
         );
     }
 
@@ -466,29 +493,25 @@ console.log("el id del paciente a buscar es ",paciente.id_paciente);
 export const listarTurnosMedico = async (datos) => {
 
 const {
-        documento, email
+        documento, 
+        email
     } = datos;
 
     // 1. Verificar que exista el usuario
-    const usuario = await usuariosRepository.getByDocumentoYEmail(
-        documento,
-        email
-    );
+    const medico = await medicosRepository.ObtenerDatosMedico(documento,email);
 
-    if (!usuario) {
+    if (!medico) {
         throw new Error('El médico no existe en el sistema.');
     }
 
     // 2. Verificar que sea un médico
-    if (usuario.rol !== 3) {
-        throw new Error('El usuario no corresponde a un médico.');
+    if (medico.rol !== 1) {
+        throw new Error('El usuario no corresponde a un médico, acceso denegado a la operacion.');
     }
 
     // 3. Obtener los turnos pendientes
     const turnos =
-        await turnosReservasRepository.getTurnosPendientesPorDocumentoMedico(
-            documento
-        );
+        await turnosReservasRepository.listarTurnosMedico(medico.id_medico);
 
     // 4. Verificar que existan turnos
     if (turnos.length === 0) {
