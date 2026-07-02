@@ -1,28 +1,35 @@
 import pool from '../config/db.js';
 
-// Trae todos los usuarios que esten activos
+// Obtener todos los usuarios activos
 export const getAll = async () => {
 
     const [rows] = await pool.query(
-        'SELECT * FROM usuarios WHERE activo = 1'
+        `SELECT *
+         FROM usuarios
+         WHERE activo = 1
+         ORDER BY apellido, nombres`
     );
 
     return rows;
 };
 
-// Busca un usuario por id
-export const getById = async (id) => {
+
+// Obtener usuario por ID
+export const getById = async (id_usuario) => {
 
     const [rows] = await pool.query(
-        'SELECT * FROM usuarios WHERE id_usuario = ? AND activo = 1',
-        [id]
+        `SELECT *
+         FROM usuarios
+         WHERE id_usuario = ?
+         AND activo = 1`,
+        [id_usuario]
     );
 
-    // Devuelve solamente el primer resultado
     return rows[0];
 };
 
-// Inserta un nuevo usuario
+
+// Crear usuario
 export const create = async (usuario) => {
 
     const {
@@ -37,7 +44,15 @@ export const create = async (usuario) => {
 
     const [result] = await pool.query(
         `INSERT INTO usuarios
-        (documento, apellido, nombres, email, contrasenia, foto_path, rol)
+        (
+            documento,
+            apellido,
+            nombres,
+            email,
+            contrasenia,
+            foto_path,
+            rol
+        )
         VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [
             documento,
@@ -50,11 +65,12 @@ export const create = async (usuario) => {
         ]
     );
 
-    return result;
+    return result.insertId;
 };
 
-// Actualiza un usuario
-export const update = async (id, usuario) => {
+
+// Actualizar usuario
+export const update = async (id_usuario, usuario) => {
 
     const {
         documento,
@@ -68,14 +84,16 @@ export const update = async (id, usuario) => {
 
     const [result] = await pool.query(
         `UPDATE usuarios
-        SET documento = ?,
+         SET
+            documento = ?,
             apellido = ?,
             nombres = ?,
             email = ?,
             contrasenia = ?,
             foto_path = ?,
             rol = ?
-        WHERE id_usuario = ?`,
+         WHERE id_usuario = ?
+         AND activo = 1`,
         [
             documento,
             apellido,
@@ -84,20 +102,24 @@ export const update = async (id, usuario) => {
             contrasenia,
             foto_path,
             rol,
-            id
+            id_usuario
         ]
     );
 
-    return result;
+    return result.affectedRows;
 };
 
-// Borrado lógico, no elimina el registro de la base
-export const remove = async (id) => {
+
+// Eliminación lógica
+export const remove = async (id_usuario) => {
 
     const [result] = await pool.query(
-        'UPDATE usuarios SET activo = 0 WHERE id_usuario = ?',
-        [id]
+        `UPDATE usuarios
+         SET activo = 0
+         WHERE id_usuario = ?
+         AND activo = 1`,
+        [id_usuario]
     );
 
-    return result;
+    return result.affectedRows;
 };

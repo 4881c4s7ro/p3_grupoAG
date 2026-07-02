@@ -1,14 +1,13 @@
-import * as especialidadesService from '../services/especialidades.service.js';
+import * as usuariosService from '../services/usuarios.service.js';
 
-// Obtener todas
+// Obtener todos
 export const getAll = async (req, res) => {
 
     try {
 
-        const especialidades =
-            await especialidadesService.getAll();
+        const usuarios = await usuariosService.getAll();
 
-        res.status(200).json(especialidades);
+        res.status(200).json(usuarios);
 
     } catch (error) {
 
@@ -20,17 +19,17 @@ export const getAll = async (req, res) => {
 
 };
 
+
 // Obtener por ID
 export const getById = async (req, res) => {
 
     try {
 
-        const especialidad =
-            await especialidadesService.getById(
-                req.params.id
-            );
+        const usuario = await usuariosService.getById(
+            req.params.id
+        );
 
-        res.status(200).json(especialidad);
+        res.status(200).json(usuario);
 
     } catch (error) {
 
@@ -42,19 +41,22 @@ export const getById = async (req, res) => {
 
 };
 
+
 // Crear
 export const create = async (req, res) => {
 
     try {
 
-        const especialidad =
-            await especialidadesService.create(
-                req.body.nombre
-            );
+        const usuario = await usuariosService.create(
+            req.body
+        );
 
         res.status(201).json({
-            message: 'Especialidad creada correctamente.',
-            especialidad
+
+            message: 'Usuario creado correctamente.',
+
+            usuario
+
         });
 
     } catch (error) {
@@ -66,21 +68,27 @@ export const create = async (req, res) => {
     }
 
 };
+
 
 // Actualizar
 export const update = async (req, res) => {
 
     try {
 
-        const especialidad =
-            await especialidadesService.update(
-                req.params.id,
-                req.body.nombre
-            );
+        const usuario = await usuariosService.update(
+
+            req.params.id,
+
+            req.body
+
+        );
 
         res.status(200).json({
-            message: 'Especialidad actualizada correctamente.',
-            especialidad
+
+            message: 'Usuario actualizado correctamente.',
+
+            usuario
+
         });
 
     } catch (error) {
@@ -93,17 +101,20 @@ export const update = async (req, res) => {
 
 };
 
+
 // Eliminar
 export const remove = async (req, res) => {
 
     try {
 
-        await especialidadesService.remove(
+        await usuariosService.remove(
             req.params.id
         );
 
         res.status(200).json({
-            message: 'Especialidad eliminada correctamente.'
+
+            message: 'Usuario eliminado correctamente.'
+
         });
 
     } catch (error) {

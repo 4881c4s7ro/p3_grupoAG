@@ -4,25 +4,43 @@ import pool from '../config/db.js';
 export const obtener_ObrasSociales = async () => {
 
     const [rows] = await pool.query(
-        'SELECT * FROM obras_sociales WHERE activo = 1'
+        `SELECT *
+         FROM obras_sociales
+         WHERE activo = 1`
     );
 
     return rows;
 };
 
-// Busca una obra social por id
+// Busca una obra social por ID
 export const obtener_ObraSocial_id = async (id) => {
 
     const [rows] = await pool.query(
-        'SELECT * FROM obras_sociales WHERE id_obra_social = ? AND activo = 1',
+        `SELECT *
+         FROM obras_sociales
+         WHERE id_obra_social = ?
+         AND activo = 1`,
         [id]
     );
 
-    // Devuelve solamente el primer resultado
     return rows[0];
 };
 
-// Inserta una nueva obra social
+// Busca una obra social por nombre
+export const obtener_ObraSocial_nombre = async (nombre) => {
+
+    const [rows] = await pool.query(
+        `SELECT *
+         FROM obras_sociales
+         WHERE nombre = ?
+         AND activo = 1`,
+        [nombre]
+    );
+
+    return rows[0];
+};
+
+// Crea una nueva obra social
 export const crear_ObraSocial = async (
     nombre,
     descripcion,
@@ -32,8 +50,8 @@ export const crear_ObraSocial = async (
 
     const [result] = await pool.query(
         `INSERT INTO obras_sociales
-        (nombre, descripcion, porcentaje_descuento, es_particular)
-        VALUES (?, ?, ?, ?)`,
+            (nombre, descripcion, porcentaje_descuento, es_particular)
+         VALUES (?, ?, ?, ?)`,
         [
             nombre,
             descripcion,
@@ -45,7 +63,7 @@ export const crear_ObraSocial = async (
     return result;
 };
 
-// Actualiza una obra social
+// Actualiza una obra social activa
 export const actualizar_ObraSocial = async (
     id,
     nombre,
@@ -56,11 +74,12 @@ export const actualizar_ObraSocial = async (
 
     const [result] = await pool.query(
         `UPDATE obras_sociales
-        SET nombre = ?,
-            descripcion = ?,
-            porcentaje_descuento = ?,
-            es_particular = ?
-        WHERE id_obra_social = ?`,
+         SET nombre = ?,
+             descripcion = ?,
+             porcentaje_descuento = ?,
+             es_particular = ?
+         WHERE id_obra_social = ?
+         AND activo = 1`,
         [
             nombre,
             descripcion,
@@ -77,7 +96,10 @@ export const actualizar_ObraSocial = async (
 export const remove = async (id) => {
 
     const [result] = await pool.query(
-        'UPDATE obras_sociales SET activo = 0 WHERE id_obra_social = ?',
+        `UPDATE obras_sociales
+         SET activo = 0
+         WHERE id_obra_social = ?
+         AND activo = 1`,
         [id]
     );
 

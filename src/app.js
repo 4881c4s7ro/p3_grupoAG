@@ -6,9 +6,18 @@ import path from 'path';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
+
+
 import authRoutes from './routes/auth.routes.js';
 import turnosRoutes from './routes/turnos.routes.js';
 import especialidadesRoutes from './routes/especialidades.routes.js';
+import usuariosRoutes from './routes/usuarios.routes.js';
+import pacientesRoutes from './routes/pacientes.routes.js';
+import medicosRoutes from './routes/medicos.routes.js';
+import obrasSocialesRoutes from './routes/obras_sociales.routes.js';
+
+
+
 
 const app = express();
 
@@ -48,6 +57,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/turnos', turnosRoutes);
 app.use('/api/v1/especialidades', especialidadesRoutes);
+app.use('/api/v1/usuarios', usuariosRoutes);
+app.use('/api/v1/pacientes', pacientesRoutes);
+app.use('/api/v1/medicos', medicosRoutes);
+app.use('/api/v1/obras-sociales', obrasSocialesRoutes);
 
 app.use((req, res) => {
     res.status(404).json({

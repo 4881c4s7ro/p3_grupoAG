@@ -1,6 +1,6 @@
 import pool from '../config/db.js';
 
-// Trae todos los médicos
+// Obtener todos los médicos
 export const getAll = async () => {
 
     const [rows] = await pool.query(`
@@ -9,22 +9,62 @@ export const getAll = async () => {
     `);
 
     return rows;
+
 };
 
-// Busca un médico por id
+// Obtener médico por ID
 export const getById = async (id) => {
 
-    const [rows] = await pool.query(
-        `SELECT *
-         FROM medicos
-         WHERE id_medico = ?`,
-        [id]
-    );
+    const [rows] = await pool.query(`
+        SELECT *
+        FROM medicos
+        WHERE id_medico = ?
+    `, [id]);
 
     return rows[0];
+
 };
 
-// Inserta un médico
+// Obtener médico por usuario
+export const getByUsuario = async (idUsuario) => {
+
+    const [rows] = await pool.query(`
+        SELECT *
+        FROM medicos
+        WHERE id_usuario = ?
+    `, [idUsuario]);
+
+    return rows[0];
+
+};
+
+// Obtener médico por matrícula
+export const getByMatricula = async (matricula) => {
+
+    const [rows] = await pool.query(`
+        SELECT *
+        FROM medicos
+        WHERE matricula = ?
+    `, [matricula]);
+
+    return rows[0];
+
+};
+
+// Obtener médicos por especialidad
+export const getAllByEspeciality = async (idEspecialidad) => {
+
+    const [rows] = await pool.query(`
+        SELECT *
+        FROM medicos
+        WHERE id_especialidad = ?
+    `, [idEspecialidad]);
+
+    return rows;
+
+};
+
+// Crear médico
 export const create = async (medico) => {
 
     const {
@@ -35,10 +75,17 @@ export const create = async (medico) => {
         valor_consulta
     } = medico;
 
-    const [result] = await pool.query(
-        `INSERT INTO medicos
-        (id_usuario, id_especialidad, matricula, descripcion, valor_consulta)
-        VALUES (?, ?, ?, ?, ?)`,
+    const [result] = await pool.query(`
+        INSERT INTO medicos
+        (
+            id_usuario,
+            id_especialidad,
+            matricula,
+            descripcion,
+            valor_consulta
+        )
+        VALUES (?, ?, ?, ?, ?)
+    `,
         [
             id_usuario,
             id_especialidad,
@@ -49,9 +96,10 @@ export const create = async (medico) => {
     );
 
     return result;
+
 };
 
-// Actualiza un médico
+// Actualizar médico
 export const update = async (id, medico) => {
 
     const {
@@ -62,14 +110,16 @@ export const update = async (id, medico) => {
         valor_consulta
     } = medico;
 
-    const [result] = await pool.query(
-        `UPDATE medicos
-        SET id_usuario = ?,
+    const [result] = await pool.query(`
+        UPDATE medicos
+        SET
+            id_usuario = ?,
             id_especialidad = ?,
             matricula = ?,
             descripcion = ?,
             valor_consulta = ?
-        WHERE id_medico = ?`,
+        WHERE id_medico = ?
+    `,
         [
             id_usuario,
             id_especialidad,
@@ -81,15 +131,17 @@ export const update = async (id, medico) => {
     );
 
     return result;
+
 };
 
-// Elimina un médico
+// Eliminar médico
 export const remove = async (id) => {
 
-    const [result] = await pool.query(
-        'DELETE FROM medicos WHERE id_medico = ?',
-        [id]
-    );
+    const [result] = await pool.query(`
+        DELETE FROM medicos
+        WHERE id_medico = ?
+    `, [id]);
 
     return result;
+
 };
